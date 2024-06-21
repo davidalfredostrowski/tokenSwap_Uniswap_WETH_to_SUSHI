@@ -251,3 +251,4 @@ Uncaught TypeError: Cannot read properties of undefined (reading 'parseUnits')
 Uncaught TypeError: mainnetForkUniswapRouter.swapExactTokensForTokens is not a function
     at REPL103:1:80
 >
+https://www.quicknode.com/guides/defi/dexs/how-to-swap-tokens-on-uniswap-v3
