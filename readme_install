@@ -1,3 +1,24 @@
+   53  ls
+   54  npx   hardhat run scripts/deploy.js --network localhost
+   55  npm start
+   56  ls
+   57  npm i @openzeppelin/contracts@4.5.0
+   58  npm i --save @uniswap/v3-sdk
+   59  npm i --save @uniswap/sdk-core
+   60  mkdir swapDemo
+   61  cd swapDemo/
+   62  ls
+   63  npx hardhat init
+   64  ls
+   65  vi hardhat.config.js
+   66  cd contracts/
+   67  ls
+   68  vi Lock.sol
+   69  vi Check.sol
+   70  ls
+   71  cd ..
+   72  ls
+   73  history
 
 
 
