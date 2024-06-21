@@ -22,7 +22,11 @@
 
 
 
-
+  56  ls
+   57  cd swapDemo/
+   58  ls
+   59  npx hardhat console --network localhost
+   60  history
 
 
 
