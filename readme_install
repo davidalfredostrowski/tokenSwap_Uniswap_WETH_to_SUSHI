@@ -1,0 +1,227 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ubuntu@ip-172-31-25-225:~/swapDemo$ npx hardhat console --network localhost
+Warning: SPDX license identifier not provided in source file. Before publishing, consider adding a comment containing "SPDX-License-Identifier: <SPDX-License>" to each source file. Use "SPDX-License-Identifier: UNLICENSED" for non-open-source code. Please see https://spdx.org for more information.
+--> contracts/Check.sol
+
+
+Compiled 3 Solidity files successfully (evm target: paris).
+Welcome to Node.js v20.15.0.
+Type ".help" for more information.
+> const { ethers } = require("hardhat");
+undefined
+>
+>
+> const addressFactory = "0x5C69bEe701ef814a2B6a3EDD4B1652CB9cc5aA6f";
+undefined
+> const addressRouter = "0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D";
+undefined
+> const addressFrom = "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2"; // WETH
+undefined
+> const addressTo = "0x6B3595068778DD592e39A122f4f5a5cF09C90fE2"; // SUSHI
+undefined
+>
+>   provider = new ethers.providers.JsonRpcProvider( "https://mainnet.infura.io/v3/0972b0440767414dba9ac1f76d0d81a5");
+Uncaught TypeError: Cannot read properties of undefined (reading 'JsonRpcProvider')
+> const { ethers, JsonRpcProvider } = require('ethers');
+Uncaught SyntaxError: Identifier 'ethers' has already been declared
+> const { JsonRpcProvider } = require('ethers');
+undefined
+>   provider = new JsonRpcProvider( "https://mainnet.infura.io/v3/0972b0440767414dba9ac1f76d0d81a5");
+JsonRpcProvider {}
+> provider
+JsonRpcProvider {}
+>  contractRouter = new ethers.Contract(addressRouter, routerABI, provider);
+Uncaught ReferenceError: routerABI is not defined
+> const routerABI = [
+...   "function getAmountsOut(uint amountIn, address[] memory path) public view returns (uint[] memory amounts)",
+... ];
+undefined
+>  contractRouter = new ethers.Contract(addressRouter, routerABI, provider);
+Contract {
+  target: '0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D',
+  interface: Interface {
+    fragments: [ [FunctionFragment] ],
+    deploy: ConstructorFragment {
+      type: 'constructor',
+      inputs: [],
+      payable: false,
+      gas: null
+    },
+    fallback: null,
+    receive: false
+  },
+  runner: JsonRpcProvider {},
+  filters: {},
+  fallback: null,
+  [Symbol(_ethersInternal_contract)]: {}
+}
+> const erc20ABI = ["function decimals() external view returns (uint8)"];
+undefined
+>  contractToken = new ethers.Contract(addressFrom, erc20ABI, provider);
+Contract {
+  target: '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2',
+  interface: Interface {
+    fragments: [ [FunctionFragment] ],
+    deploy: ConstructorFragment {
+      type: 'constructor',
+      inputs: [],
+      payable: false,
+      gas: null
+    },
+    fallback: null,
+    receive: false
+  },
+  runner: JsonRpcProvider {},
+  filters: {},
+  fallback: null,
+  [Symbol(_ethersInternal_contract)]: {}
+}
+>
+>   const amountInHuman = "1";
+undefined
+>
+>   amountIn = ethers.utils.parseUnits(amountInHuman, decimals).toString();
+Uncaught TypeError: Cannot read properties of undefined (reading 'parseUnits')
+>   amountIn = ethers.parseUnits(amountInHuman, decimals).toString();
+Uncaught ReferenceError: decimals is not defined
+>
+>     decimals = await contractToken.decimals();
+18n
+>   amountIn = ethers.parseUnits(amountInHuman, decimals).toString();
+'1000000000000000000'
+>
+>
+>     const amountsOut = await contractRouter.getAmountsOut(amountIn, [   addressFrom,  addressTo,  ]);
+undefined
+> amountsOut
+Result(2) [ 1000000000000000000n, 4193329945061264707915n ]
+> const amountString = amountsOut[1].toString();
+undefined
+> amountString
+'4193329945061264707915'
+>
+>     const [ownerSigner] = await ethers.getSigners();
+undefined
+>
+>     const mainnetForkUniswapRouter = new ethers.Contract(   addressRouter,   routerABI,   ownerSigner  );
+undefined
+> const [deployer] = await ethers.getSigners();
+undefined
+> const signers = await ethers.getSigners();
+undefined
+> const bal = await ethers.provider.getBalance(signers[0])
+undefined
+> const contract2 =  await ethers.getContractFactory("Check")
+undefined
+> const deployedContract  = await contract2.deploy()
+Uncaught:
+ProviderError: Transaction maxFeePerGas (5452684786) is too low for the next block, which has a baseFeePerGas of 8070000946
+    at HttpProvider.request (/home/ubuntu/swapDemo/node_modules/hardhat/src/internal/core/providers/http.ts:96:21)
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at HardhatEthersSigner.sendTransaction (/home/ubuntu/swapDemo/node_modules/@nomicfoundation/hardhat-ethers/src/signers.ts:125:18)
+    at ContractFactory.deploy (/home/ubuntu/swapDemo/node_modules/ethers/src.ts/contract/factory.ts:111:24)
+    at REPL43:1:64
+    at node:repl:645:29
+> const sendValueHuman = "3.0";
+undefined
+> const  myAddress = "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"
+undefined
+> const myGasPrice = (await ethers.provider.getFeeData()).gasPrice
+undefined
+> const nonce = await ethers.provider.getTransactionCount(myAddress)
+undefined
+>  const txBuild = {
+...   from: myAddress, // from,
+...   to: "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2",
+...   value: ethers.parseEther(sendValueHuman), // value,
+...   nonce: nonce2, // nonce,  gasLimit: 100000, // gas limit,
+...   gasPrice: myGasPrice,   // gasPrice, // gas price };
+... }
+Uncaught ReferenceError: nonce2 is not defined
+> const nonce2 = await ethers.provider.getTransactionCount(myAddress)
+undefined
+>  const txBuild2 = {
+...   from: myAddress, // from,
+...   to: "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2",
+...   value: ethers.parseEther(sendValueHuman), // value,
+...   nonce: nonce2, // nonce,  gasLimit: 100000, // gas limit,
+...   gasPrice: myGasPrice,   // gasPrice, // gas price
+...
+...  };
+undefined
+>  const txSend   = await deployer.sendTransaction(txBuild2);
+undefined
+> const bal2 = await ethers.provider.getBalance(signers[0])
+undefined
+> bal2
+9996999594289787684474n
+>     const txSwap = await mainnetForkUniswapRouter.swapExactTokensForTokens(
+...       amountIn, // amount In,
+...       amountOut, // amount Out,
+...       [addressFrom, addressTo], // path,
+...       myAddress, // address to,
+...       Date.now() + 1000 * 60 * 5, // deadline,
+...       {
+...         gasLimit: 200000,
+...         gasPrice: ethers.utils.parseUnits("5.5", "gwei"),
+...       } // gas
+...     );
+Uncaught ReferenceError: amountOut is not defined
+    at REPL78:3:7
+>     const amountOut = await contractRouter.getAmountsOut(amountIn, [   addressFrom,  addressTo,  ]);
+undefined
+>     const txSwap2 = await mainnetForkUniswapRouter.swapExactTokensForTokens(
+...       amountIn, // amount In,
+...       amountOut, // amount Out,
+...       [addressFrom, addressTo], // path,
+...       myAddress, // address to,
+...       Date.now() + 1000 * 60 * 5, // deadline,
+...       {
+...         gasLimit: 200000,
+...         gasPrice: ethers.utils.parseUnits("5.5", "gwei"),
+...       } // gas
+...     );
+Uncaught TypeError: Cannot read properties of undefined (reading 'parseUnits')
+    at REPL92:9:32
+>     const txSwap3 = await mainnetForkUniswapRouter.swapExactTokensForTokens(
+...       amountIn, // amount In,
+...       amountOut, // amount Out,
+...       [addressFrom, addressTo], // path,
+...       myAddress, // address to,
+...       Date.now() + 1000 * 60 * 5, // deadline,
+...       {
+...         gasLimit: 200000,
+...         gasPrice: ethers.parseUnits("5.5", "gwei"),
+...       } // gas
+...     );
+Uncaught TypeError: mainnetForkUniswapRouter.swapExactTokensForTokens is not a function
+    at REPL103:1:80
+>
